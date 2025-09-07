@@ -1,0 +1,80 @@
+{{!-- Newsletters --}}
+<section class="px-5 sm:px-6 bg-bgr-tone py-6 sticky top-8" data-newsletters
+  x-data="{ 
+    member: {{#if @member}}true{{else}}false{{/if}},
+    newsletters: [], // Initialize as an empty array
+    memberNewsletters: [], 
+    updateSubscriptions() {
+      const subscribedNewsletters = Array.from(document.querySelectorAll('[data-subscribed=true]')).map(el => ({
+        id: el.getAttribute('data-newsletter-id')
+      }));
+      updateMemberNewsletters(subscribedNewsletters);
+    }
+  }"  
+  x-init="$nextTick(async () => { 
+    newsletters = await getNewsletters(); 
+    if (member) {
+      memberNewsletters = await getMemberNewsletters();
+      newsletters = newsletters.map(n => ({
+          ...n,
+          active: memberNewsletters?.some(mn => mn.id === n.id) || false
+      }));
+    }
+  })">
+  <div class="max-w-site mx-auto">
+    <h2 class="text-xl font-semibold mb-3 flex items-center gap-2 leading-none">
+      {{#if @site.icon}}
+        <img class="size-6 -mt-1" src="{{img_url @site.icon absolute="true" size="xs"}}" alt="icon">
+      {{/if}}
+      <span>{{@site.title}}</span> 
+      <span class="text-typ-tone">{{t "Newsletters"}}</span>
+    </h2>
+    <div class="flex flex-col gap-4 border-t border-brd-soft pt-4 sm:pt-5">
+      <template x-for="(newsletter, index) in newsletters" :key="index">
+        <article class="flex flex-col items-start gap-2 pb-4 sm:pb-5 relative border-b border-brd-soft" :data-newsletter-id="newsletter.id" :data-newsletter-slug="newsletter.slug" :data-subscribed="newsletter.active" :data-newsletter-index="index + 1">
+
+          {{!-- Name --}}
+          <h3 class="text-base leading-tight font-semibold" x-text="newsletter.name"></h3>
+
+          {{!-- Description --}}
+          <p class="flex-1 text-sm text-typ-tone leading-tight max-w-md md:text-[0.925rem]" x-show="newsletter.description" x-text="newsletter.description"></p>
+
+          {{#if @member}}
+            <button type="button" :class="newsletter.active ? '' : ''" class="bg-bgr absolute -top-0.25 -right-0.25 cursor-pointer size-4.5 flex items-center justify-center border border-brd" 
+              role="switch" :aria-checked="newsletter.active"
+              @click="newsletter.active = !newsletter.active; $nextTick(() => updateSubscriptions())"
+            >
+              <span class="size-2.5" :class="newsletter.active ? 'bg-brand' : 'bg-bgr hover:bg-brd-soft'">
+              </span>
+            </button>
+          {{/if}}
+        </article>
+      </template>
+    </div>
+  </div>
+
+  {{!-- Subscribe/unsubscribe --}}
+  <div class="max-w-site mx-auto flex flex-col gap-2 items-center mt-6">
+    {{#if @member}}
+      <button 
+        @click="newsletters.length && newsletters.forEach(newsletter => newsletter.active = false); $nextTick(() => updateSubscriptions())" 
+        class="cursor-pointer text-sm font-medium bg-rose-500 text-white px-6 py-2 rounded-btn font-sans hover:brightness-110">
+        {{t "Unsubscribe from all emails"}}
+      </button>
+    {{else}}
+      {{> subscribe-form 
+        form_class="w-full max-w-md font-sans"
+        fieldset_class="w-full bg-bgr border border-brd-soft flex flex-wrap rounded-btn text-sm md:text-base"
+        input_class="text-sm bg-bgr text-typ flex-2 py-2.5 rounded-btn border-none focus:ring-0"
+        button_class="text-sm flex-1 px-5 py-2.5 bg-brand text-bgr font-medium rounded-btn md:px-6 hover:brightness-110"
+        show_signup_terms=false
+      }}
+      {{#if show_preview_link}}
+        <a href="/newsletters/" class="flex items-center self-start font-semibold font-sans uppercase text-typ text-[0.8rem] hover:text-brand gap-0.5 hover:gap-0.75" data-newsletter-preview>
+          <span>{{t "Preview"}}</span>
+          {{> icon name="chevron-right" icon_class="size-3.25 stroke-[3]"}}
+        </a>
+      {{/if}}
+    {{/if}}
+  </div>
+</section>
