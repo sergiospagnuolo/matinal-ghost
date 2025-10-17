@@ -30,7 +30,7 @@ collections:
     data: tag.sponsored
     filter: tag:[sponsored,hash-sponsored]
   /:
-    permalink: /{slug}/
+    permalink: /{primary_tag}/{slug}/
     template: index
 
 taxonomies:

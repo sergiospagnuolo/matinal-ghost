@@ -3,14 +3,14 @@
 {{!-- Hero section: Featured posts --}}
 {{#match @custom.hero_posts_filter "featured"}}
   {{> sections/hero 
-    posts_filter="featured:true+tag:-[hash-podcast,hash-event,hash-newsletter,hash-sponsored]"
+    posts_filter="featured:true+tag:-[hash-podcast,hash-event,hash-newsletter,hash-sponsored,hash-destak]"
   }}
 {{/match}}
 
 {{!-- Hero section: Latest posts --}}
 {{#match @custom.hero_posts_filter "latest"}}
   {{> sections/hero 
-    posts_filter="tag:-[hash-podcast,hash-event,hash-newsletter,hash-sponsored]"
+    posts_filter="tag:-[hash-podcast,hash-event,hash-newsletter,hash-sponsored,hash-destak]"
   }}
 {{/match}}
 
@@ -20,19 +20,19 @@
 {{!-- Members-only posts section --}}
 {{#match @custom.members_posts_filter "all-members"}}
   {{> sections/members-only
-    posts_filter="visibility:-public+tag:-[hash-podcast,hash-event,hash-newsletter,hash-sponsored]"
+    posts_filter="visibility:-public+tag:-[hash-podcast,hash-event,hash-newsletter,hash-sponsored,hash-destak]"
     posts_limit="8"
   }}
 {{/match}}
 {{#match @custom.members_posts_filter "free-members-only"}}
   {{> sections/members-only
-    posts_filter="visibility:members+tag:-[hash-podcast,hash-event,hash-newsletter,hash-sponsored]"
+    posts_filter="visibility:members+tag:-[hash-podcast,hash-event,hash-newsletter,hash-sponsored,hash-destak]"
     posts_limit="8"
   }}
 {{/match}}
 {{#match @custom.members_posts_filter "paid-members-only"}}
   {{> sections/members-only
-    posts_filter="visibility:-[free,public]+tag:-[hash-podcast,hash-event,hash-newsletter,hash-sponsored]"
+    posts_filter="visibility:-[free,public]+tag:-[hash-podcast,hash-event,hash-newsletter,hash-sponsored,hash-destak]"
     posts_limit="8"
   }}
 {{/match}}
