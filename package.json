@@ -201,7 +201,7 @@
       "show_events": {
         "type": "boolean",
         "default": true,
-        "description": "Show the events section on the homepage (posts tagged 'agenda')",
+        "description": "Show the events section on the homepage (posts tagged 'event')",
         "group": "homepage"
       },
       "default_post_layout": {
