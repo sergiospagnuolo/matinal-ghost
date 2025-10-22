@@ -14,8 +14,8 @@ collections:
     template: page-newsletters
     data: page.newsletters
     filter: tag:[newsletter,hash-newsletter]
-  /eventos/:
-    permalink: /eventos/{slug}/
+  /events/:
+    permalink: /events/{slug}/
     template: page-events
     data: page.events
     filter: tag:[event,hash-event]
@@ -30,7 +30,7 @@ collections:
     data: tag.sponsored
     filter: tag:[sponsored,hash-sponsored]
   /:
-    permalink: /{primary_tag}/{slug}/
+    permalink: /{slug}/
     template: index
 
 taxonomies:

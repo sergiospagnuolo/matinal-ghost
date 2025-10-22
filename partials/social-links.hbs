@@ -3,12 +3,12 @@
 
   {{!-- Facebook --}}
   {{#if @site.facebook}}
-    <a href="{{facebook_url}}" class="{{item_class}}" aria-label="Facebook">{{>icon name="brand-facebook" icon_class=icon_class}}<span class="{{text_class}}">Facebook</span></a>
+    <a href="{{social_url type="facebook"}}" class="{{item_class}}" aria-label="Facebook">{{>icon name="brand-facebook" icon_class=icon_class}}<span class="{{text_class}}">Facebook</span></a>
   {{/if}}
 
   {{!-- Twitter --}}
   {{#if @site.twitter}}
-    <a href="{{twitter_url}}" class="{{item_class}}" aria-label="Twitter">{{>icon name="brand-x" icon_class=icon_class}}<span class="{{text_class}}">Twitter</span></a>
+    <a href="{{social_url type="twitter"}}" class="{{item_class}}" aria-label="Twitter">{{>icon name="brand-x" icon_class=icon_class}}<span class="{{text_class}}">Twitter</span></a>
   {{/if}}
 
   {{!-- Bluesky --}}

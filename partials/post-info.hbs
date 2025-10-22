@@ -3,8 +3,15 @@
     <div class="flex flex-col gap-1">
       <div class="flex items-center gap-1 {{#match (date updated_at format="YYYY-DD-MM hh:mm") "!=" (date published_at format="YYYY-DD-MM hh:mm")}}sm:opacity-60{{/match}}">
         <span class="">{{t "Published"}}:</span>
-        <time datetime="{{date format="YYYY-MM-DDThh:mm:ss"}}">{{date format="DD.MM.YYYY, HH:mm"}}</time>
+        <time datetime="{{date format="YYYY-MM-DDThh:mm:ss"}}">{{date format="MMMM DD, YYYY, h:mm a"}}</time>
       </div>
+      {{#match (date updated_at format="YYYY-DD-MM hh:mm") "!=" (date published_at format="YYYY-DD-MM hh:mm")}}
+        <div class="hidden sm:flex items-center gap-1">
+          {{> icon name="corner-down-right" icon_class="size-4 stroke-2"}}
+          <span class="">{{t "Last updated"}}:</span>
+          <time datetime="{{date updated_at format="YYYY-MM-DDThh:mm:ss"}}">{{date updated_at format="MMMM DD, YYYY, h:mm a"}}</time>
+        </div>
+      {{/match}}
     </div>
     <div class="flex items-center gap-1 relative flex-1 justify-end" x-data="{shareOpen: false}">
       {{#if comments}}

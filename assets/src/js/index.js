@@ -27,7 +27,7 @@ import {
   copyURL,
   getScrollPercent,
   getContrastColor,
-  setBrandContrast
+  setBrandContrast,
 } from './utils';
 
 window.initColorScheme = initColorScheme
@@ -40,8 +40,8 @@ window.setBrandContrast = setBrandContrast
 /* -----------------------------------------------------------------------------
 Newsletters
 ----------------------------------------------------------------------------- */
-import { getNewsletters, getMemberNewsletters, updateMemberNewsletters } from './ghost';
-window.getNewsletters = getNewsletters
+import { getPosts, getMemberNewsletters, updateMemberNewsletters } from './ghost';
+window.getPosts = getPosts
 window.getMemberNewsletters = getMemberNewsletters
 window.updateMemberNewsletters = updateMemberNewsletters
 

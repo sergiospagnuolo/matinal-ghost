@@ -2,6 +2,10 @@
   <form class="group relative flex flex-col items-start [.error]:pointer-events-none {{#if form_class}} {{form_class}}{{/if}}" 
     data-members-form="{{#if form_type}}{{form_type}}{{else}}subscribe{{/if}}" 
     {{#if @site.portal_signup_terms_html}}{{#if show_signup_terms}}x-data="{ termsAccepted: false, submitTriggered: false }"{{/if}}{{/if}}>
+
+    {{#if include_newsletters}}
+      {{> subscribe-newsletters}}
+    {{/if}}
     
     <fieldset class="{{fieldset_class}}">
       <legend class="sr-only">{{t "Personal information"}}</legend>
@@ -13,7 +17,7 @@
         aria-label="{{t "Your email address"}}" required  aria-required="true"/> 
       <button class="cursor-pointer {{button_class}}" type="submit" {{#if @site.portal_signup_checkbox_required}}@click="submitTriggered = true"{{/if}}>
         <span class="hidden group-[.loading]:flex items-center justify-center">{{> icon name="loader" icon_class="size-6 [&_svg]:animate-spin stroke-2"}}</span>
-        <span class="">{{#if button_text}}{{button_text}}{{else}}{{t "Subscribe"}}{{/if}}</span>
+        <span class="group-[.loading]:hidden">{{#if button_text}}{{button_text}}{{else}}{{t "Subscribe"}}{{/if}}</span>
       </button>
     </fieldset>
 

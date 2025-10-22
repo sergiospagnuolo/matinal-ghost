@@ -19,7 +19,7 @@
         </a>
       </div>
 
-      <div class="flex items-center justify-end gap-3 md:gap-4 text-sm md:text-base font-medium{{#match @custom.header_logo_position "center"}} flex-1{{/match}}">
+      <div class="flex items-center justify-end gap-3 md:gap-4 text-sm md:text-base font-medium{{#match @custom.header_logo_position "center"}} flex-1{{/match}}" data-header-actions>
         {{!-- Member/User button --}}
         {{#if @member}}
           <button class="relative flex items-center justify-center size-8 md:size-9 hover:text-brand cursor-pointer rounded-full" data-portal="account" aria-label="{{@member.name}}">
