@@ -1,0 +1,52 @@
+{{!< default}}
+
+{{!-- Hero no mesmo padrão do tag-hero, mas com logotipo centralizado --}}
+{{#page}}
+
+<section class="px-5 sm:px-6" data-tag-hero="">
+  <div class="max-w-site mx-auto flex flex-col items-center justify-center" style="min-height:220px; padding-top:3rem; padding-bottom:3rem;">
+    <figure class="flex justify-center items-center w-full max-w-xl">
+      <picture class="flex justify-center w-full">
+        <source
+          srcset="/content/images/size/w320/format/webp/2025/parentese-logo.png 320w,
+                  /content/images/size/w640/format/webp/2025/parentese-logo.png 640w,
+                  /content/images/size/w960/format/webp/2025/parentese-logo.png 960w"
+          sizes="(max-width: 767px) 80vw, 400px"
+          type="image/webp">
+        <img
+          src="/content/images/2025/parentese-logo.png"
+          alt="Parêntese"
+          class="mx-auto object-contain rounded-theme"
+          style="width:300px; height:auto;">
+      </picture>
+    </figure>
+  </div>
+</section>
+{{/page}}
+
+{{!-- Feed centralizado usando o card horizontal padrão --}}
+<section class="px-5 sm:px-6">
+  <div class="mx-auto" style="max-width:680px; border-top:1px solid var(--color-brd-soft); padding-top:2rem;">
+    {{#get "posts" filter="primary_tag:newsletter+tags:parentese" include="tags,authors"}}
+  <div class="flex flex-col gap-8 md:gap-10 divide-y-1 divide-brd-soft" data-post-feed="parentese">
+    {{#foreach posts}}
+      <article class="post tag-newsletter tag-parentese pb-8 md:pb-10 relative flex gap-4 md:gap-8 text-typ" data-post-card="">
+        {{> "cards/post-card-horizontal"}}
+      </article>
+    {{/foreach}}
+  </div>
+{{else}}
+  <p class="text-center text-gray-500">Nenhuma edição encontrada.</p>
+{{/get}}
+
+  </div>
+</section>
+
+{{!-- Conteúdo opcional da página --}}
+{{#page}}
+  {{#if html}}
+    <article class="{{post_class}} ghost-content prose prose-lg prose-theme mt-12"{{#unless access}} data-preview{{/unless}}>
+      {{content}}
+    </article>
+  {{/if}}
+{{/page}}
