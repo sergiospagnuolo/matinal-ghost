@@ -1,0 +1,278 @@
+{{!< default}}
+
+{{!-- HEADER / TÍTULO DA PÁGINA CULTURA --}}
+<section class="px-5 sm:px-6" data-tag-hero="">
+  <div class="max-w-site mx-auto flex flex-col items-center justify-center text-center gap-6 py-12">
+    <h1 class="font-semibold tracking-tight text-3xl sm:text-4xl md:text-5xl">
+      Cultura
+    </h1>
+  </div>
+
+  {{!-- Linha divisória abaixo do título --}}
+  <div class="max-w-site mx-auto border-t-3 border-brd-soft pt-8"></div>
+</section>
+
+
+{{!-- HERO + COLUNAS dentro do mesmo bloco GET --}}
+{{#get "posts"
+  filter="primary_tag:cultura+(tag:[reportagem,resenha])"
+  include="tags,authors"
+  limit="1"
+  order="published_at desc"
+}}
+  {{#if posts}}
+    <section class="px-5 sm:px-6 mt-6">
+      <div class="max-w-site mx-auto">
+        {{!-- HERO --}}
+        {{#foreach posts}}
+          <article class="{{post_class}} relative flex flex-col gap-4 md:flex-row md:gap-5 lg:gap-0 text-typ" data-post-card data-featured>
+            {{#if feature_image}}
+              <a href="{{url}}" class="flex-1 relative group">
+                <figure class="block flex-1 rounded-theme overflow-hidden" role="none">
+                  <img
+                    class="w-full aspect-[3/2] bg-bgr object-cover rounded-[inherit] group-hover:opacity-90 transition-opacity"
+                    src="{{img_url feature_image size="l"}}"
+                    alt="{{title}}"
+                    loading="eager"
+                  >
+                </figure>
+              </a>
+            {{/if}}
+
+            <div class="bg-bgr flex-1 flex flex-col justify-center gap-2.5 self-center lg:p-8 lg:pr-0 lg:-ml-8 z-1">
+              {{#if tags}}
+                <div class="inline-flex whitespace-nowrap font-sans font-normal uppercase text-[0.8rem]">
+                  <ul class="flex gap-2 font-semibold">
+                    {{#foreach tags}}
+                      {{^match slug "cultura"}}
+                        <li><a href="{{url}}" class="text-brand decoration-2 underline-offset-2 hover:underline">{{name}}</a></li>
+                      {{/match}}
+                    {{/foreach}}
+                  </ul>
+                </div>
+              {{/if}}
+
+              <h1 class="text-2xl font-semibold sm:text-3xl lg:text-4xl">
+                <a href="{{url}}" class="hover:underline underline-offset-4">{{title}}</a>
+              </h1>
+
+              {{#if excerpt}}
+                <p class="text-base leading-normal md:text-lg">{{excerpt}}</p>
+              {{/if}}
+
+              <div class="leading-tight text-[0.8rem] font-sans uppercase font-normal opacity-75">
+                <div class="inline">
+                  <span class="opacity-75 font-body font-medium lowercase italic">Por</span>
+                  {{#foreach authors}}
+                    <a href="{{url}}">{{name}}</a>{{#unless @last}}<span class="opacity-75 font-body font-medium lowercase italic"> e </span>{{/unless}}
+                  {{/foreach}}
+                </div>
+                <div class="inline">
+                  <span class="mx-1.5 text-brd-soft">/</span>
+                  <time class="opacity-75 font-medium whitespace-nowrap" datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>
+                </div>
+              </div>
+            </div>
+          </article>
+        {{/foreach}}
+      </div>
+
+    
+
+    </section>
+
+
+   
+{{!-- BANNER / AGENDA – card wide, sem borda, fundo #f8f8f8 --}}
+<section class="px-5 sm:px-6 mt-12">
+  <div class="max-w-site mx-auto">
+    <div
+      class="rounded-theme text-center px-6 py-12 sm:py-14 md:py-16"
+      style="background:#f8f8f8;"
+    >
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-typ mb-3">
+        Agenda Cultural
+      </h2>
+      <p class="text-base md:text-lg text-typ-tone max-w-2xl mx-auto mb-6">
+        Descubra os melhores eventos, shows, exposições e muito mais para fazer em Porto Alegre.
+      </p>
+      <a href="/agenda/" class="inline-flex items-center justify-center font-sans text-sm uppercase font-semibold text-brand hover:text-brand-dark transition">
+        <span>Ver programação</span>
+        {{> icon name="chevron-right" icon_class="ml-1 size-4 stroke-[3]"}}
+      </a>
+    </div>
+  </div>
+</section>
+
+
+    {{!-- SEÇÃO: CULTURA - 3 COLUNAS (ainda dentro do mesmo #get) --}}
+    <section class="px-5 sm:px-6 mt-10">
+      <div class="max-w-site mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+
+        {{!-- ===== COLUNA 1 – REPORTAGENS (exclui o HERO) ===== --}}
+        <div class="flex flex-col" data-topic="reportagens">
+          <h2 class="text-sm font-semibold font-sans uppercase border-b-3 border-brd">
+            <a href="/cultura-reportagem/" class="inline-block px-3 py-1 -mb-0.75 bg-brd text-bgr hover:bg-brand hover:text-brand-contrast">Reportagens</a>
+          </h2>
+
+          {{#get "posts"
+            filter="primary_tag:cultura+tag:reportagem+id:-{{posts.[0].id}}"
+            include="tags,authors"
+            limit="5"
+            order="published_at desc"
+          }}
+            {{#if posts}}
+              {{#foreach posts}}
+                {{#if @first}}
+                  <article class="border-b border-brd-soft pb-4 relative flex flex-col gap-4 text-typ">
+                    <a href="{{url}}" class="relative group">
+                      {{#if feature_image}}
+                        <figure class="block rounded-theme overflow-hidden">
+                          <img src="{{img_url feature_image size='m'}}" alt="{{title}}" class="w-full aspect-[16/9] object-cover rounded-[inherit] group-hover:opacity-90 transition-opacity">
+                        </figure>
+                      {{/if}}
+                    </a>
+                    <h3 class="text-lg font-semibold md:text-xl leading-tight">
+                      <a href="{{url}}" class="hover:underline underline-offset-4">{{title}}</a>
+                    </h3>
+                  </article>
+                {{else}}
+                  <article class="border-b border-brd-soft py-2 text-typ">
+                    <h4 class="text-base leading-snug"><a href="{{url}}" class="hover:underline underline-offset-4">{{title}}</a></h4>
+                  </article>
+                {{/if}}
+              {{/foreach}}
+
+     {{!-- LINK FINAL À DIREITA (no padrão do tema) --}}
+<div class="mt-3 text-right">
+  <a href="/cultura-reportagem/" class="inline-flex items-center justify-center font-sans text-sm uppercase font-semibold text-brand hover:text-brand-dark transition">
+    <span>Ver todas</span>
+    <i class="icon icon-chevron-right ml-1 size-4 stroke-[3]" role="presentation">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M9 6l6 6l-6 6"></path>
+      </svg>
+    </i>
+  </a>
+</div>
+
+            {{else}}
+              <p class="text-sm text-typ-tone mt-4">Nenhuma reportagem encontrada.</p>
+            {{/if}}
+          {{/get}}
+        </div>
+
+        {{!-- ===== COLUNA 2 – ÚLTIMAS (exclui o HERO) ===== --}}
+        <div class="flex flex-col" data-topic="ultimas">
+          <h2 class="text-sm font-semibold font-sans uppercase border-b-3 border-brd">
+            <a href="/tag/ultimas/" class="inline-block px-3 py-1 -mb-0.75 bg-brd text-bgr hover:bg-brand hover:text-brand-contrast">Últimas</a>
+          </h2>
+
+          {{#get "posts"
+            filter="primary_tag:cultura+tag:ultimas+id:-{{posts.[0].id}}"
+            include="tags,authors"
+            limit="5"
+            order="published_at desc"
+          }}
+            {{#if posts}}
+              {{#foreach posts}}
+                {{#if @first}}
+                  <article class="border-b border-brd-soft pb-4 relative flex flex-col gap-4 text-typ">
+                    <a href="{{url}}" class="relative group">
+                      {{#if feature_image}}
+                        <figure class="block rounded-theme overflow-hidden">
+                          <img src="{{img_url feature_image size='m'}}" alt="{{title}}" class="w-full aspect-[16/9] object-cover rounded-[inherit] group-hover:opacity-90 transition-opacity">
+                        </figure>
+                      {{/if}}
+                    </a>
+                    <h3 class="text-lg font-semibold md:text-xl leading-tight">
+                      <a href="{{url}}" class="hover:underline underline-offset-4">{{title}}</a>
+                    </h3>
+                  </article>
+                {{else}}
+                  <article class="border-b border-brd-soft py-2 text-typ">
+                    <h4 class="text-base leading-snug"><a href="{{url}}" class="hover:underline underline-offset-4">{{title}}</a></h4>
+                  </article>
+                {{/if}}
+              {{/foreach}}
+
+ {{!-- LINK FINAL À DIREITA (padrão do tema) --}}
+      <div class="mt-3 text-right">
+        <a href="/tag/ultimas/" class="inline-flex items-center justify-center font-sans text-sm uppercase font-semibold text-brand hover:text-brand-dark transition">
+          <span>Ver todas</span>
+          <i class="icon icon-chevron-right ml-1 size-4 stroke-[3]" role="presentation">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M9 6l6 6l-6 6"></path>
+            </svg>
+          </i>
+        </a>
+      </div>
+
+
+              {{else}}
+              <p class="text-sm text-typ-tone mt-4">Nenhuma matéria recente encontrada.</p>
+            {{/if}}
+          {{/get}}
+        </div>
+
+        {{!-- ===== COLUNA 3 – RESENHAS (exclui o HERO) ===== --}}
+        <div class="flex flex-col" data-topic="resenhas">
+          <h2 class="text-sm font-semibold font-sans uppercase border-b-3 border-brd">
+            <a href="/cultura-resenha/" class="inline-block px-3 py-1 -mb-0.75 bg-brd text-bgr hover:bg-brand hover:text-brand-contrast">Resenhas</a>
+          </h2>
+
+          {{#get "posts"
+            filter="primary_tag:cultura+tag:resenha+id:-{{posts.[0].id}}"
+            include="tags,authors"
+            limit="5"
+            order="published_at desc"
+          }}
+            {{#if posts}}
+              {{#foreach posts}}
+                {{#if @first}}
+                  <article class="border-b border-brd-soft pb-4 relative flex flex-col gap-4 text-typ">
+                    <a href="{{url}}" class="relative group">
+                      {{#if feature_image}}
+                        <figure class="block rounded-theme overflow-hidden">
+                          <img src="{{img_url feature_image size='m'}}" alt="{{title}}" class="w-full aspect-[16/9] object-cover rounded-[inherit] group-hover:opacity-90 transition-opacity">
+                        </figure>
+                      {{/if}}
+                    </a>
+                    <h3 class="text-lg font-semibold md:text-xl leading-tight">
+                      <a href="{{url}}" class="hover:underline underline-offset-4">{{title}}</a>
+                    </h3>
+                  </article>
+                {{else}}
+                  <article class="border-b border-brd-soft py-2 text-typ">
+                    <h4 class="text-base leading-snug"><a href="{{url}}" class="hover:underline underline-offset-4">{{title}}</a></h4>
+                  </article>
+                {{/if}}
+              {{/foreach}}
+      
+     {{!-- LINK FINAL À DIREITA (no padrão do tema) --}}
+<div class="mt-3 text-right">
+  <a href="/cultura-resenha/" class="inline-flex items-center justify-center font-sans text-sm uppercase font-semibold text-brand hover:text-brand-dark transition">
+    <span>Ver todas</span>
+    <i class="icon icon-chevron-right ml-1 size-4 stroke-[3]" role="presentation">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M9 6l6 6l-6 6"></path>
+      </svg>
+    </i>
+  </a>
+</div>
+
+
+            {{else}}
+              <p class="text-sm text-typ-tone mt-4">Nenhuma resenha encontrada.</p>
+            {{/if}}
+          {{/get}}
+        </div>
+
+      </div>
+    </section>
+  {{else}}
+    <p class="text-sm text-typ-tone mt-4 text-center">Nenhuma matéria encontrada.</p>
+  {{/if}}
+{{/get}}

@@ -1,0 +1,77 @@
+{{!< default}}
+
+<main class="main" id="main">
+  {{!-- HERO --}}
+  <section class="px-5 sm:px-6" data-tag-hero="">
+    <div class="max-w-site mx-auto flex flex-col md:flex-row gap-6 py-12">
+      <div class="flex-1 max-w-xl flex flex-col justify-center gap-3 md:gap-4 py-4">
+        <h1 class="font-semibold tracking-tight text-3xl sm:text-4xl md:text-5xl">Resenhas de Cultura</h1>
+      </div>
+    </div>
+  </section>
+
+  {{!-- LISTAGEM --}}
+  <section class="px-5 sm:px-6">
+    <div class="max-w-site mx-auto">
+      <div class="flex flex-col md:flex-row gap-8 lg:gap-10">
+
+        {{!-- COLUNA PRINCIPAL --}}
+        <div class="flex-3 max-w-200 border-t-3 border-brd-soft pt-8">
+          <div class="flex flex-col gap-8 md:gap-10 flex-3 divide-y-1 divide-brd-soft" data-post-feed="latest">
+
+            {{#get "posts"
+              filter="primary_tag:cultura+tag:resenha"
+              include="tags,authors"
+              limit="20"
+              order="published_at desc"
+            }}
+              {{#if posts}}
+                {{#foreach posts}}
+
+                  <article class="post {{post_class}} pb-8 md:pb-10 relative flex gap-4 md:gap-8 text-typ" data-post-card="">
+                    <div class="bg-bgr flex flex-col gap-2 flex-3 md:flex-2 overflow-hidden max-w-120" data-post-card-content="">
+                      <h3 class="text-lg sm:text-xl font-semibold lg:text-2xl leading-[1.15]">
+                        <a href="{{url}}" class="hover:underline underline-offset-4">{{title}}</a>
+                      </h3>
+
+                      <p class="text-base leading-snug mb-0.5 hidden lg:block">{{excerpt words="25"}}</p>
+
+                      <div class="leading-tight text-[0.8rem] font-sans uppercase font-normal opacity-75">
+                        <div class="inline">
+                          <span class="opacity-75 font-body font-medium lowercase italic">Por</span>
+                          {{#foreach authors}}
+                            <a href="{{url}}">{{name}}</a>{{#unless @last}}, {{/unless}}
+                          {{/foreach}}
+                        </div>
+                        <div class="inline">
+                          <span class="mx-1.5 text-brd-soft">/</span>
+                          <time class="opacity-75 font-medium whitespace-nowrap" datetime="{{date format='YYYY-MM-DD'}}">{{date format='DD MMM YYYY'}}</time>
+                        </div>
+                      </div>
+                    </div>
+
+                    {{#if feature_image}}
+                      <a href="{{url}}" class="relative group self-start flex-1 sm:size-auto bg-bgr-tone aspect-[1/1] sm:aspect-[16/9]">
+                        <figure class="block rounded-theme overflow-hidden" role="none">
+                          <img class="aspect-[1/1] sm:aspect-[16/9] object-cover rounded-[inherit] w-full group-hover:opacity-90 transition-opacity" src="{{img_url feature_image size='m'}}" alt="{{title}}">
+                        </figure>
+                      </a>
+                    {{/if}}
+                  </article>
+
+                {{/foreach}}
+              {{else}}
+                <p class="text-sm text-typ-tone mt-4">Nenhuma resenha encontrada.</p>
+              {{/if}}
+            {{/get}}
+
+          </div>
+        </div>
+
+        {{!-- SIDEBAR (vazio, igual às páginas de tag quando não há widgets) --}}
+        <aside class="flex-1 flex flex-col gap-6" data-sidebar=""></aside>
+
+      </div>
+    </div>
+  </section>
+</main>
