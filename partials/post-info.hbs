@@ -5,6 +5,7 @@
         <span class="">{{t "Published"}}:</span>
         <time datetime="{{date format="YYYY-MM-DDThh:mm:ss"}}">{{date format="MMMM DD, YYYY, h:mm a"}}</time>
       </div>
+      {{!-- Show updated date only if it's different from published date 
       {{#match (date updated_at format="YYYY-DD-MM hh:mm") "!=" (date published_at format="YYYY-DD-MM hh:mm")}}
         <div class="hidden sm:flex items-center gap-1">
           {{> icon name="corner-down-right" icon_class="size-4 stroke-2"}}
@@ -12,6 +13,7 @@
           <time datetime="{{date updated_at format="YYYY-MM-DDThh:mm:ss"}}">{{date updated_at format="MMMM DD, YYYY, h:mm a"}}</time>
         </div>
       {{/match}}
+      --}}
     </div>
     <div class="flex items-center gap-1 relative flex-1 justify-end" x-data="{shareOpen: false}">
       {{#if comments}}
