@@ -1,11 +1,33 @@
-{{#unless @member.paid}} 
-  {{#get "pages" filter="slug:banner-header" limit="1" as |banner|}}
-    {{#foreach banner}}
-      <section class="px-5 sm:px-6 mt-6" data-banner="header">
-        <div class="max-w-site mx-auto">
-          {{content}}
-        </div>  
-      </section>
-    {{/foreach}}
-  {{/get}}
-{{/unless}}
+{{!-- partials/banners/header.hbs --}}
+{{#is "home"}}
+  {{#unless @member}}
+    <section class="px-5 sm:px-6 mt-6" data-banner="header">
+      <div class="max-w-site mx-auto bg-bgr-tone border-t-3 border-brd-soft p-6 md:p-8 rounded-xl">
+        <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] items-center gap-6">
+
+          <!-- Texto -->
+          <div>
+            <h3 class="font-semibold text-lg md:text-xl leading-snug mb-1">
+              Cadastre seu email para receber a Matinal News gratuitamente
+            </h3>
+            <p class="text-sm md:text-base text-typ-tone leading-snug">
+              As principais notícias de Porto Alegre e do RS diretamente no seu email.
+            </p>
+          </div>
+
+          <!-- Formulário -->
+          <div class="flex justify-end md:justify-end w-full">
+            {{> subscribe-form 
+              form_class="w-full max-w-sm font-sans mt-1"
+              fieldset_class="w-full bg-bgr border border-brd-soft flex flex-wrap rounded-btn text-sm md:text-base"
+              input_class="text-sm bg-bgr text-typ flex-1 py-2.5 rounded-btn border-none focus:ring-0"
+              button_class="text-sm flex-none px-5 py-2.5 bg-brand text-bgr font-medium rounded-btn md:px-6 hover:brightness-110"
+              show_signup_terms=false
+            }}
+          </div>
+
+        </div>
+      </div>
+    </section>
+  {{/unless}}
+{{/is}}
