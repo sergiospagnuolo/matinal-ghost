@@ -3,7 +3,7 @@
     <div class="flex flex-col gap-1">
       <div class="flex items-center gap-1 {{#match (date updated_at format="YYYY-DD-MM hh:mm") "!=" (date published_at format="YYYY-DD-MM hh:mm")}}sm:opacity-60{{/match}}">
         <span class="">{{t "Published"}}:</span>
-        <time datetime="{{date format="YYYY-MM-DDTHH:mm:ss"}}">{{date format="DD/MMM/YYYY [às] HH:mm" locale="pt"}}</time>
+        <time datetime="{{date format="YYYY-MM-DDTHH:mm:ss"}}">{{date format="DD MMMM YYYY, HH:mm" locale="pt"}}</time>
       </div>
       {{!-- Show updated date only if it's different from published date 
       {{#match (date updated_at format="YYYY-DD-MM hh:mm") "!=" (date published_at format="YYYY-DD-MM hh:mm")}}
