@@ -7,20 +7,21 @@
     
     {{!-- Coluna do logotipo --}}
     <figure class="flex-1 max-w-xl flex items-center justify-start">
-      <picture class="flex justify-start w-full">
-        <source
-          srcset="/content/images/size/w320/format/webp/2025/parentese-logo.png 320w,
-                  /content/images/size/w640/format/webp/2025/parentese-logo.png 640w,
-                  /content/images/size/w960/format/webp/2025/parentese-logo.png 960w"
-          sizes="(max-width: 767px) 80vw, 400px"
-          type="image/webp">
-        <img
-          src="https://www.matinal.org/content/images/2025/10/parentese-logo.png"
-          alt="Parêntese"
-          class="object-contain rounded-theme"
-          style="width:320px; height:auto;">
-      </picture>
-    </figure>
+  <picture class="flex justify-start w-full">
+    <source
+      srcset="{{@site.url}}/content/images/size/w320/format/webp/2025/parentese-logo.png 320w,
+              {{@site.url}}/content/images/size/w640/format/webp/2025/parentese-logo.png 640w,
+              {{@site.url}}/content/images/size/w960/format/webp/2025/parentese-logo.png 960w"
+      sizes="(max-width: 767px) 80vw, 400px"
+      type="image/webp">
+    <img
+      src="{{@site.url}}/content/images/2025/10/parentese-logo.png"
+      alt="Parêntese"
+      class="object-contain rounded-theme"
+      style="width:320px; height:auto;">
+  </picture>
+</figure>
+
 
     {{!-- Coluna opcional de texto (caso queira título ou descrição depois) --}}
     <div class="flex-1 flex flex-col justify-center gap-3 md:gap-4 py-4">
