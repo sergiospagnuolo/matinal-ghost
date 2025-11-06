@@ -1,0 +1,71 @@
+<section class="px-5 sm:px-6 mt-20 mb-20" data-section="opiniao"
+  x-data
+  x-init="
+    const grid = $el.querySelector('[data-op-grid]');
+    const cards = Array.from(grid.querySelectorAll('[data-author]'));
+
+    // Agrupa por autor e mantém o mais recente
+    const byAuthor = new Map();
+    cards.forEach(card => {
+      const slug = card.dataset.author;
+      const date = new Date(card.dataset.published);
+      const prev = byAuthor.get(slug);
+      if (!prev || date > prev.date) byAuthor.set(slug, { date, el: card });
+    });
+
+    // Ordena por data desc e mantém 3
+    const uniqueSorted = Array.from(byAuthor.values())
+      .sort((a, b) => b.date - a.date)
+      .slice(0, 3)
+      .map(x => x.el);
+
+    // Limpa grid e reinsere os 3 únicos
+    grid.innerHTML = '';
+    uniqueSorted.forEach(c => grid.appendChild(c));
+  ">
+  <div class="max-w-site mx-auto">
+
+    {{> section-heading 
+      section_title="Opinião"
+      section_link="/opiniao/"
+      section_link_text="Tudo em opinião"
+    }}
+
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3" data-op-grid>
+      {{#get "posts" include="authors" filter="tag:opiniao" order="published_at desc" limit="15"}}
+        {{#foreach posts}}
+          <article 
+            data-author="{{authors.[0].slug}}" 
+            data-published="{{published_at}}" 
+            class="flex flex-col text-left gap-3">
+
+            <div class="flex items-center gap-3">
+              {{#if authors.[0].profile_image}}
+                <a href="{{authors.[0].url}}" class="flex-shrink-0">
+                  <img 
+                    src="{{authors.[0].profile_image}}" 
+                    alt="{{authors.[0].name}}" 
+                    class="rounded-full object-cover border border-brd-soft shrink-0"
+                    style="width:60px; height:60px;"
+                    loading="lazy">
+                </a>
+              {{/if}}
+
+              <h3 class="font-semibold text-base md:text-lg text-brand leading-tight">
+                <a href="{{authors.[0].url}}" class="hover:underline">
+                  {{authors.[0].name}}
+                </a>
+              </h3>
+            </div>
+
+            <p class="font-serif text-lg font-semibold text-typ-tone leading-snug">
+              <a href="{{url}}" class="hover:underline decoration-2 underline-offset-4">
+                {{title}}
+              </a>
+            </p>
+          </article>
+        {{/foreach}}
+      {{/get}}
+    </div>
+  </div>
+</section>
