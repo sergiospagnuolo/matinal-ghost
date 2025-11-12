@@ -20,6 +20,16 @@
 {{!-- Colunistas --}}
 {{> sections/opiniao}}
 
+{{!-- Members-only configurado apenas puxar apenas newsletters section --}}
+{{> sections/members-only-newsletters}}
+
+{{#match @custom.members_posts_filter "all-members"}}
+  {{> sections/members-only
+    posts_filter="visibility:-public+tag:-[hash-podcast,hash-event,hash-newsletter,hash-sponsored]"
+    posts_limit="8"
+  }}
+{{/match}}
+
 
 {{!-- Members-only posts section --}}
 {{#match @custom.members_posts_filter "all-members"}}
