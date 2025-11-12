@@ -30,10 +30,12 @@
 
       <div class="max-w-site mx-auto sm:bg-bgr-tone pt-4 sm:p-5 md:p-6 border-t-3 border-brd overflow-hidden relative">
         <div class="flex justify-between items-center mb-4 sm:mb-6">
-          <h2 class="text-sm md:text-base font-bold! uppercase flex gap-1 items-center">        
-            {{> icon name="bolt" icon_class="size-4 md:size-5 [&_svg]:fill-brand text-brand"}}
-            <span class="leading-none mt-1">Acompanhe nossas newsletters</span>
-          </h2>
+          <a href="https://www.matinal.org/tag/newsletter/" class="group">
+  <h2 class="text-sm md:text-base font-bold! uppercase flex gap-1 items-center group-hover:text-brand transition-colors">
+    {{> icon name="bolt" icon_class="size-4 md:size-5 [&_svg]:fill-brand text-brand"}}
+    <span class="leading-none mt-1">Acompanhe nossas newsletters</span>
+  </h2>
+</a>
 
           <a href="https://www.matinal.org/assine"
              class="text-sm font-semibold font-sans flex gap-1 items-center hover:text-brand leading-none">
@@ -52,7 +54,7 @@
             {{/foreach}}
           </div>
 
-          <div class="flex justify-between mt-6 gap-4">
+              <div class="flex justify-between mt-6 gap-4">
             <button class="p-1.5 border border-brd-soft md:p-2 cursor-pointer bg-bgr hover:bg-typ hover:text-bgr hover:border-typ"
                     data-swipe-left-newsletters-posts>
               {{> icon name="chevron-left" icon_class="size-5 stroke-2"}}
@@ -71,6 +73,13 @@
           </div>
         </div>
       </div>
+
+      <style>
+  [data-newsletters-posts] [data-post-card-tags] {
+    display: none !important;
+  }
+</style>
+
     </section>
   {{/if}}
 {{/get}}
