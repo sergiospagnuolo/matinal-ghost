@@ -31,8 +31,29 @@
     {{#if @member}}
       <a class="kg-button gh-btn rounded-btn! bg-brand! text-brand-contrast! hover:brightness-110 font-medium!" {{#if @custom.use_portal_links}}data-portal="account/plans" href="#/portal/account/plans"{{else}}href="/membership/"{{/if}}>{{t "Upgrade your account"}}</a>
     {{else}}
-      <a class="kg-button gh-btn rounded-btn! bg-brand! text-brand-contrast! hover:brightness-110 font-medium!" {{#if @custom.use_portal_links}}data-portal="signup" href="#/portal/signup"{{else}}href="/membership/"{{/if}}>{{t "Subscribe now"}}</a>
-      <p class="text-typ"><small>{{t "Already have an account?"}} <a class="kg-link text-typ! hover:text-brand! hover:opacity-100! decoration-2! underline-offset-2!" {{#if @custom.use_portal_links}}data-portal="signin" href="#/portal/signin"{{else}}href="/signin/"{{/if}}>{{t "Sign in"}}</a></small></p>
+     
+ {{#has visibility="members"}}
+    <a class="kg-button gh-btn rounded-btn! bg-brand! text-brand-contrast! hover:brightness-110 font-medium!"
+    {{#if @custom.use_portal_links}}data-portal="signup" href="#/portal/signup"{{else}}href="/membership/"{{/if}}>
+    {{t "Subscribe now free"}}
+    </a>
+    {{else}}
+    <a class="kg-button gh-btn rounded-btn! bg-brand! text-brand-contrast! hover:brightness-110 font-medium!"
+    {{#if @custom.use_portal_links}}data-portal="signup" href="#/portal/signup"{{else}}href="/membership/"{{/if}}>
+    {{t "Subscribe now paid"}}
+    </a>
+ {{/has}}
+
+  <p class="text-typ"><small>
+    {{t "Already have an account?"}}
+    <a class="kg-link text-typ! hover:text-brand! hover:opacity-100! decoration-2! underline-offset-2!"
+       {{#if @custom.use_portal_links}}data-portal="signin" href="#/portal/signin"{{else}}href="/signin/"{{/if}}>
+      {{t "Sign in"}}
+    </a>
+  </small></p>
+
+
+
     {{/if}}
   </div>
 </aside>
