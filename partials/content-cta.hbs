@@ -30,11 +30,11 @@
     {{/has}}
     {{#if @member}}
       <a class="kg-button gh-btn rounded-btn! bg-brand! text-brand-contrast! hover:brightness-110 font-medium!" {{#if @custom.use_portal_links}}data-portal="account/plans" href="#/portal/account/plans"{{else}}href="/membership/"{{/if}}>{{t "Upgrade your account"}}</a>
-    {{else}}
+      {{else}}
      
  {{#has visibility="members"}}
     <a class="kg-button gh-btn rounded-btn! bg-brand! text-brand-contrast! hover:brightness-110 font-medium!"
-    {{#if @custom.use_portal_links}}data-portal="signup" href="#/portal/signup"{{else}}href="/membership/"{{/if}}>
+    {{#if @custom.use_portal_links}}data-portal="signup" href="#/portal/signup"{{else}}href="/signup/"{{/if}}>
     {{t "Subscribe now free"}}
     </a>
     {{else}}

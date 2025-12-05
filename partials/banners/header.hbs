@@ -1,4 +1,20 @@
 {{!-- partials/banners/header.hbs --}}
+
+{{!-- 🔥 Novo banner global — aparece em TODAS as páginas 
+<section class="px-5 sm:px-6 mt-6" data-banner="global-image-banner">
+  <div class="banner-matinal-wrapper">
+    <a href="http://localhost:2368/content/images/2025/12/banner-teste.png">
+      <img 
+        src="http://localhost:2368/content/images/2025/12/banner-teste.png"
+        alt="Banner Matinal"
+        class="banner-matinal-img"
+      >
+    </a>
+  </div>
+</section>
+--}}
+
+
 {{#is "home"}}
   {{#unless @member}}
     <section class="px-5 sm:px-6 mt-6" data-banner="header">
@@ -31,3 +47,5 @@
     </section>
   {{/unless}}
 {{/is}}
+
+
