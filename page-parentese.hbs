@@ -1,23 +1,20 @@
 {{!< default}}
 
-{{!-- Hero no padrão das tags, mas com logotipo à esquerda --}}
+{{!-- Hero com logotipo --}}
 {{#page}}
 <section class="px-5 sm:px-6" data-tag-hero="">
   <div class="max-w-site mx-auto flex flex-col md:flex-row gap-6 py-12">
-    
-    {{!-- Coluna do logotipo --}}
-<figure class="flex-1 max-w-xl flex items-center justify-start">
-  <img
-    src="https://www.matinal.org/content/images/2025/10/parentese-logo.png"
-    alt="Parêntese"
-    class="object-contain rounded-theme"
-    style="width:320px; height:auto;">
-</figure>
 
+    {{!-- Logotipo --}}
+    <figure class="flex-1 max-w-xl flex items-center justify-start">
+      <img
+        src="https://www.matinal.org/content/images/2025/10/parentese-logo.png"
+        alt="Parêntese"
+        class="object-contain rounded-theme"
+        style="width:320px; height:auto;">
+    </figure>
 
-
-
-    {{!-- Coluna opcional de texto (caso queira título ou descrição depois) --}}
+    {{!-- Descrição opcional --}}
     <div class="flex-1 flex flex-col justify-center gap-3 md:gap-4 py-4">
       {{#if description}}
         <p class="text-lg md:text-xl text-typ-tone text-balance [&_a]:underline [&_a]:decoration-2 [&_a]:underline-offset-2 [&_a:hover]:text-brand">{{{description}}}</p>
@@ -28,23 +25,14 @@
 </section>
 {{/page}}
 
-{{!-- Feed padrão de tags, mas filtrando Newsletter + Parêntese --}}
+{{!-- Feed --}}
 <section class="px-5 sm:px-6">
   <div class="max-w-site mx-auto">
     <div class="flex flex-col md:flex-row gap-8 lg:gap-10">
-      
-      {{!-- Coluna principal --}}
       <div class="flex-3 max-w-200 border-t-3 border-brd-soft pt-8">
-        {{#get "posts" filter="primary_tag:newsletter+tags:parentese" include="tags,authors"}}
-          {{> post-feed feed_type="latest"}}
-          {{> pagination }}
-        {{else}}
-          <p class="text-center text-gray-500">Nenhuma edição encontrada.</p>
-        {{/get}}
+        {{> post-feed feed_type="latest"}}
+        {{> pagination}}
       </div>
-
-      {{!-- Sidebar --}}
-      {{> sidebar}}
     </div>
   </div>
 </section>

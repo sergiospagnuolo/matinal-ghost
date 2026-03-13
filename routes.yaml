@@ -7,6 +7,22 @@ routes:
     template: index
     data: page.latest
     filter: tag:-[hash-newsletter,hash-event,hash-podcast,hash-sponsored]
+  /cultura-reportagem/:
+    controller: channel
+    permalink: /cultura-reportagem/
+    template: page-cultura-reportagem
+    filter: primary_tag:cultura+tag:reportagem
+  /cultura-resenha/:
+    controller: channel
+    permalink: /cultura-resenha/
+    template: page-cultura-resenha
+    filter: primary_tag:cultura+tag:resenha
+  /parentese/:
+    controller: channel
+    permalink: /parentese/
+    template: page-parentese
+    data: page.parentese
+    filter: primary_tag:newsletter+tag:parentese
 
 collections:
   /newsletters/:
