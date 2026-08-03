@@ -1,0 +1,173 @@
+{{!< default}}
+
+{{#post}}
+  {{#match @custom.default_post_layout "with-regular-image"}}
+    {{> post-hero
+      type="regular-image"
+      media_class="max-w-content"
+    }}
+  {{/match}}
+  {{#match @custom.default_post_layout "with-wide-image"}}
+    {{> post-hero
+      type="wide-image"
+      media_class="max-w-wide"
+    }}
+  {{/match}}
+  {{#match @custom.default_post_layout "with-fullwidth-image"}}
+    {{> post-hero
+      type="fullwidth-image"
+      wrapper_class="flex-col-reverse pb-4"
+      content_class="relative z-10 md:pt-8 pb-6 border-b border-brd-soft md:-mt-18 md:bg-bgr md:before:absolute md:before:w-[calc(100%_+_5rem)] md:before:h-full md:before:-left-10 md:before:top-0 md:before:bg-bgr md:before:-z-1"
+      media_class="max-w-site"
+      image_sizes="(max-width: 1023px) 90vw, 1200px"
+    }}
+  {{/match}}
+  {{#match @custom.default_post_layout "with-no-image"}}
+    {{> post-hero
+      type="no-image"
+      media_class="hidden"
+    }}
+  {{/match}}
+  {{#match @custom.default_post_layout "with-sidebar"}}
+    <section class="lg:px-6 lg:[&_section]:px-0! lg:[&_[data-post-info]]:px-0! lg:[&_article]:[--gap:0]!" style="--container-content: 760px;" data-post-with-sidebar>
+      <div class="max-w-site mx-auto flex flex-col gap-6 lg:flex-row">
+        <div class="flex-2">
+          {{> post-hero
+            type="with-sidebar"
+          }}
+
+          <article class="ghost-content prose prose-lg prose-theme"{{#unless access}} data-preview{{/unless}}>
+            {{content}}
+          </article>
+
+          {{> author-box}}
+
+          {{> post-tags}}
+
+          {{> comments
+            wrapper_class="mb-0!"
+          }}
+        </div>
+
+        {{> post-sidebar}}
+      </div>
+    </section>
+  {{/match}}
+
+  {{#match @custom.default_post_layout "!=" "with-sidebar"}}
+    <article class="ghost-content prose prose-lg prose-theme"{{#unless access}} data-preview{{/unless}}>
+      {{content}}
+    </article>
+
+    {{> author-box}}
+
+    {{> post-tags}}
+
+    {{> comments}}
+  {{/match}}
+
+  {{!-- RODAPÉ PERSONALIZADO: 3 colunas da agenda --}}
+  <section class="px-5 sm:px-6 mt-12">
+    <div class="max-w-site mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+
+      {{!-- COLUNA 1: alterna conforme primary tag do post atual --}}
+      <div>
+        {{#match primary_tag.slug "agenda-mensal"}}
+          {{!-- Lendo "esse mês": mostra "vem aí" --}}
+          <h2 class="text-sm font-semibold font-sans uppercase border-b-3 border-brd mb-4">
+            <a href="/tag/agenda-do-ano/" class="inline-block px-3 py-1 -mb-0.75 bg-brd text-bgr hover:bg-brand hover:text-brand-contrast">Vem aí</a>
+          </h2>
+          {{#get "posts" filter="primary_tag:agenda-do-ano+id:-{{id}}" include="tags,authors" limit="1" order="published_at desc"}}
+            {{#if posts}}{{#foreach posts}}{{> cards/post-card-vertical use_h2=true}}{{/foreach}}
+            {{else}}<p class="text-sm text-typ-tone">Nenhum post encontrado.</p>{{/if}}
+          {{/get}}
+        {{else}}
+          {{#match primary_tag.slug "exposicoes"}}
+            {{!-- Lendo "exposicoes": mostra "agenda semanal" --}}
+            <h2 class="text-sm font-semibold font-sans uppercase border-b-3 border-brd mb-4">
+              <a href="/tag/agenda-semanal/" class="inline-block px-3 py-1 -mb-0.75 bg-brd text-bgr hover:bg-brand hover:text-brand-contrast">Agenda da semana</a>
+            </h2>
+            {{#get "posts" filter="primary_tag:agenda-semanal+id:-{{id}}" include="tags,authors" limit="1" order="published_at desc"}}
+              {{#if posts}}{{#foreach posts}}{{> cards/post-card-vertical use_h2=true}}{{/foreach}}
+              {{else}}<p class="text-sm text-typ-tone">Nenhum post encontrado.</p>{{/if}}
+            {{/get}}
+          {{else}}
+            {{!-- Default: mostra "esse mês" --}}
+            <h2 class="text-sm font-semibold font-sans uppercase border-b-3 border-brd mb-4">
+              <a href="/tag/agenda-mensal/" class="inline-block px-3 py-1 -mb-0.75 bg-brd text-bgr hover:bg-brand hover:text-brand-contrast">Esse mês</a>
+            </h2>
+            {{#get "posts" filter="primary_tag:agenda-mensal+id:-{{id}}" include="tags,authors" limit="1" order="published_at desc"}}
+              {{#if posts}}{{#foreach posts}}{{> cards/post-card-vertical use_h2=true}}{{/foreach}}
+              {{else}}<p class="text-sm text-typ-tone">Nenhum post encontrado.</p>{{/if}}
+            {{/get}}
+          {{/match}}
+        {{/match}}
+      </div>
+
+      {{!-- COLUNA 2: alterna quando lendo "exposicoes" --}}
+      <div>
+        {{#match primary_tag.slug "exposicoes"}}
+          {{!-- Lendo "exposicoes": mostra "vem aí" --}}
+          <h2 class="text-sm font-semibold font-sans uppercase border-b-3 border-brd mb-4">
+            <a href="/tag/agenda-do-ano/" class="inline-block px-3 py-1 -mb-0.75 bg-brd text-bgr hover:bg-brand hover:text-brand-contrast">Vem aí</a>
+          </h2>
+          {{#get "posts" filter="primary_tag:agenda-do-ano+id:-{{id}}" include="tags,authors" limit="1" order="published_at desc"}}
+            {{#if posts}}{{#foreach posts}}{{> cards/post-card-vertical use_h2=true}}{{/foreach}}
+            {{else}}<p class="text-sm text-typ-tone">Nenhum post encontrado.</p>{{/if}}
+          {{/get}}
+        {{else}}
+          {{!-- Default: mostra "museus e galerias" --}}
+          <h2 class="text-sm font-semibold font-sans uppercase border-b-3 border-brd mb-4">
+            <a href="/tag/exposicoes/" class="inline-block px-3 py-1 -mb-0.75 bg-brd text-bgr hover:bg-brand hover:text-brand-contrast">Museus e galerias</a>
+          </h2>
+          {{#get "posts" filter="primary_tag:exposicoes+id:-{{id}}" include="tags,authors" limit="1" order="published_at desc"}}
+            {{#if posts}}{{#foreach posts}}{{> cards/post-card-vertical use_h2=true}}{{/foreach}}
+            {{else}}<p class="text-sm text-typ-tone">Nenhum post encontrado.</p>{{/if}}
+          {{/get}}
+        {{/match}}
+      </div>
+
+      {{!-- COLUNA 3: Roteiros e Guias (fixo) --}}
+      <div>
+        <h2 class="text-sm font-semibold font-sans uppercase border-b-3 border-brd mb-4">
+          <a href="/tag/guia/" class="inline-block px-3 py-1 -mb-0.75 bg-brd text-bgr hover:bg-brand hover:text-brand-contrast">Roteiros e guias</a>
+        </h2>
+        {{#get "posts" filter="primary_tag:guia+id:-{{id}}" include="tags,authors" limit="1" order="published_at desc"}}
+          {{#if posts}}{{#foreach posts}}{{> cards/post-card-vertical use_h2=true}}{{/foreach}}
+          {{else}}<p class="text-sm text-typ-tone">Nenhum post encontrado.</p>{{/if}}
+        {{/get}}
+      </div>
+
+    </div>
+  </section>
+
+  {{!-- LINHA FINAL: Mais de Cultura --}}
+  {{#get "posts"
+    filter="primary_tag:cultura+id:-{{id}}"
+    include="tags,authors"
+    limit="4"
+    order="published_at desc"
+  }}
+    {{#if posts}}
+      <section class="px-5 sm:px-6 mt-10">
+        <div class="max-w-site mx-auto">
+          <div class="flex items-end mb-6" data-section-head="">
+            <h2 class="text-xl md:text-2xl font-semibold leading-none -mb-1">Mais de Cultura</h2>
+            <span class="flex-1 border-b-3 border-brd ml-3"></span>
+            <a href="/tag/cultura/" class="group uppercase font-sans text-xs sm:text-sm font-semibold flex items-center gap-0.5 bg-brd px-2.5 pl-4 py-1.5 text-bgr hover:bg-brand hover:text-brand-contrast ml-3">
+              <span>Ver tudo</span>
+              {{> icon name="chevron-right" icon_class="size-3.25 stroke-[3]"}}
+            </a>
+          </div>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {{#foreach posts}}
+              {{> cards/post-card-vertical use_h2=true excerpt_class="hidden"}}
+            {{/foreach}}
+          </div>
+        </div>
+      </section>
+    {{/if}}
+  {{/get}}
+
+  {{> sections/sponsored}}
+{{/post}}

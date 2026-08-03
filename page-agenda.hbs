@@ -1,0 +1,168 @@
+{{!< default}}
+
+{{!-- HERO — Agenda Semanal --}}
+{{#get "posts"
+  filter="primary_tag:agenda-semanal"
+  include="tags,authors"
+  limit="1"
+  order="published_at desc"
+}}
+  {{#if posts}}
+    <section class="px-5 sm:px-6 mt-8">
+      <div class="max-w-site mx-auto">
+        {{#foreach posts}}
+          {{> cards/post-card-fullwidth image_loading="eager"}}
+        {{/foreach}}
+      </div>
+    </section>
+  {{/if}}
+{{/get}}
+
+
+{{!-- 3 COLUNAS: Mensal | Vem aí | Museus e galerias --}}
+<section class="px-5 sm:px-6 mt-10">
+  <div class="max-w-site mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+
+    {{!-- COLUNA 1: Agenda do Mês --}}
+    <div>
+      <h2 class="text-sm font-semibold font-sans uppercase border-b-3 border-brd mb-4">
+        <a href="/tag/agenda-mensal/" class="inline-block px-3 py-1 -mb-0.75 bg-brd text-bgr hover:bg-brand hover:text-brand-contrast">Esse mês</a>
+      </h2>
+      {{#get "posts"
+        filter="primary_tag:agenda-mensal"
+        include="tags,authors"
+        limit="1"
+        order="published_at desc"
+      }}
+        {{#if posts}}
+          {{#foreach posts}}
+            {{> cards/post-card-vertical use_h2=true}}
+          {{/foreach}}
+        {{else}}
+          <p class="text-sm text-typ-tone">Nenhum post encontrado.</p>
+        {{/if}}
+      {{/get}}
+    </div>
+
+    {{!-- COLUNA 2: Vem aí --}}
+    <div>
+      <h2 class="text-sm font-semibold font-sans uppercase border-b-3 border-brd mb-4">
+        <a href="/tag/agenda-do-ano/" class="inline-block px-3 py-1 -mb-0.75 bg-brd text-bgr hover:bg-brand hover:text-brand-contrast">Vem aí</a>
+      </h2>
+      {{#get "posts"
+        filter="primary_tag:agenda-do-ano"
+        include="tags,authors"
+        limit="1"
+        order="published_at desc"
+      }}
+        {{#if posts}}
+          {{#foreach posts}}
+            {{> cards/post-card-vertical use_h2=true}}
+          {{/foreach}}
+        {{else}}
+          <p class="text-sm text-typ-tone">Nenhum post encontrado.</p>
+        {{/if}}
+      {{/get}}
+    </div>
+
+    {{!-- COLUNA 3: Museus e galerias --}}
+    <div>
+      <h2 class="text-sm font-semibold font-sans uppercase border-b-3 border-brd mb-4">
+        <a href="/tag/exposicoes/" class="inline-block px-3 py-1 -mb-0.75 bg-brd text-bgr hover:bg-brand hover:text-brand-contrast">Museus e galerias</a>
+      </h2>
+      {{#get "posts"
+        filter="primary_tag:exposicoes"
+        include="tags,authors"
+        limit="1"
+        order="published_at desc"
+      }}
+        {{#if posts}}
+          {{#foreach posts}}
+            {{> cards/post-card-vertical use_h2=true}}
+          {{/foreach}}
+        {{else}}
+          <p class="text-sm text-typ-tone">Nenhum post encontrado.</p>
+        {{/if}}
+      {{/get}}
+    </div>
+
+  </div>
+</section>
+
+
+{{!-- GUIA: posts com primary_tag:guia + tags de área --}}
+{{#get "posts"
+  filter="primary_tag:guia+tag:[show,teatro,danca,cinema,serie,artes-visuais,infantil,fotografia,literatura]"
+  include="tags,authors"
+  limit="4"
+  order="published_at desc"
+}}
+  {{#if posts}}
+    <section class="px-5 sm:px-6 mt-12">
+      <div class="max-w-site mx-auto">
+
+        <div class="flex items-end mb-6" data-section-head="">
+          <h2 class="text-2xl md:text-3xl font-semibold leading-none -mb-1">Roteiros e Guias</h2>
+          <span class="flex-1 border-b-3 border-brd ml-3"></span>
+          <a href="/tag/guia/" class="group uppercase font-sans text-xs sm:text-sm font-semibold flex items-center gap-0.5 bg-brd px-2.5 pl-4 py-1.5 text-bgr hover:bg-brand hover:text-brand-contrast ml-3">
+            <span>Ver tudo</span>
+            {{> icon name="chevron-right" icon_class="size-3.25 stroke-[3]"}}
+          </a>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-8 lg:gap-10">
+
+          {{!-- Feed coluna única --}}
+          <div class="flex-3 max-w-200">
+            {{#foreach posts}}
+              <article class="relative flex gap-4 md:gap-8 text-typ border-b border-brd-soft py-5 first:pt-0" data-post-card>
+                <div class="flex flex-col gap-1.5 sm:gap-2 md:gap-2.5 flex-3 md:flex-2 overflow-hidden max-w-120">
+                  {{!-- Tag secundária (2ª tag do post, pulando 'guia') --}}
+                  {{#foreach tags from="2" to="2"}}
+                    <div class="text-[0.75rem] font-sans font-semibold uppercase text-brand">
+                      <a href="{{url}}">{{name}}</a>
+                    </div>
+                  {{/foreach}}
+                  <h3 class="text-lg sm:text-xl font-semibold lg:text-2xl leading-[1.15]">
+                    <a href="{{url}}" class="hover:underline underline-offset-4">{{title}}</a>
+                  </h3>
+                  {{#if excerpt}}
+                    <p class="text-base leading-snug mb-0.5 hidden lg:block">{{excerpt words="30"}}</p>
+                  {{/if}}
+                  {{> post-card-meta-bottom}}
+                </div>
+                {{#if feature_image}}
+                  <a href="{{url}}" class="relative group self-start flex-1 bg-bgr-tone aspect-[1/1] sm:aspect-[16/9]">
+                    <figure class="block rounded-theme overflow-hidden h-full" role="none">
+                      <img
+                        src="{{img_url feature_image size="s"}}"
+                        alt="{{title}}"
+                        class="w-full h-full object-cover rounded-[inherit] group-hover:opacity-90 transition-opacity"
+                      >
+                    </figure>
+                  </a>
+                {{/if}}
+              </article>
+            {{/foreach}}
+          </div>
+
+          {{!-- Banner lateral --}}
+          <aside class="flex-1">
+            <div class="sticky top-10">
+              <p class="text-[0.65rem] font-sans font-semibold uppercase tracking-widest text-typ-tone opacity-60 text-center mb-1">Publicidade</p>
+              <a href="/assine">
+                <img
+                  src="https://storage.ghost.io/c/7e/3a/7e3ad6d5-d95b-441b-a694-25e84bd0cefa/content/images/2026/04/anuncio-3-2-1.png"
+                  alt="Anúncio"
+                  class="w-full rounded-xl"
+                >
+              </a>
+            </div>
+          </aside>
+
+        </div>
+
+      </div>
+    </section>
+  {{/if}}
+{{/get}}
