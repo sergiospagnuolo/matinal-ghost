@@ -1,0 +1,467 @@
+<title>Capa da Agenda — Documentação de Tags</title>
+<style>
+  :root {
+    --bg: #f6f5f2;
+    --bg-alt: #eeecea;
+    --bg-code: #e4e2de;
+    --text: #1b1b1b;
+    --text-muted: #6b6762;
+    --accent: #c8272b;
+    --accent-light: #f5e6e6;
+    --border: #d8d5d0;
+    --border-strong: #b0aca6;
+    --section-1: #dceaf5;
+    --section-2: #e8f0e4;
+    --section-3: #f5ede0;
+    --section-4: #ede8f5;
+    --tag-bg: #e4e2de;
+    --tag-text: #3a3835;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #181715;
+      --bg-alt: #211f1d;
+      --bg-code: #2a2826;
+      --text: #e6e3de;
+      --text-muted: #9a9490;
+      --accent: #e84548;
+      --accent-light: #2e1a1a;
+      --border: #2e2b28;
+      --border-strong: #4a4642;
+      --section-1: #1a2630;
+      --section-2: #1a2618;
+      --section-3: #2e2218;
+      --section-4: #211a2e;
+      --tag-bg: #2a2826;
+      --tag-text: #c8c4be;
+    }
+  }
+
+  :root[data-theme="light"] {
+    --bg: #f6f5f2; --bg-alt: #eeecea; --bg-code: #e4e2de;
+    --text: #1b1b1b; --text-muted: #6b6762; --accent: #c8272b;
+    --accent-light: #f5e6e6; --border: #d8d5d0; --border-strong: #b0aca6;
+    --section-1: #dceaf5; --section-2: #e8f0e4; --section-3: #f5ede0; --section-4: #ede8f5;
+    --tag-bg: #e4e2de; --tag-text: #3a3835;
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #181715; --bg-alt: #211f1d; --bg-code: #2a2826;
+    --text: #e6e3de; --text-muted: #9a9490; --accent: #e84548;
+    --accent-light: #2e1a1a; --border: #2e2b28; --border-strong: #4a4642;
+    --section-1: #1a2630; --section-2: #1a2618; --section-3: #2e2218; --section-4: #211a2e;
+    --tag-bg: #2a2826; --tag-text: #c8c4be;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    padding: 2.5rem 1.25rem 5rem;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .doc-header {
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .doc-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .doc-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem;
+    font-weight: normal;
+    line-height: 1.15;
+    text-wrap: balance;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .doc-subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    max-width: 55ch;
+  }
+
+  /* Section titles */
+  h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.15rem;
+    font-weight: normal;
+    color: var(--text);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h3 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p { margin-bottom: 0.75rem; color: var(--text); }
+
+  /* Page structure diagram */
+  .diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .diagram-block {
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .diagram-block strong {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    margin-bottom: 0.15rem;
+  }
+
+  .diagram-block.hero {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    font-size: 0.95rem;
+  }
+
+  .diagram-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .diagram-block.col-1 { background: var(--section-1); border-left: 3px solid #4a90c4; }
+  .diagram-block.col-2 { background: var(--section-2); border-left: 3px solid #5a9e4a; }
+  .diagram-block.col-3 { background: var(--section-3); border-left: 3px solid #c47a3a; }
+  .diagram-block.guia  { background: var(--section-4); border-left: 3px solid #7a6aba; }
+
+  /* Tags table */
+  .tag-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.85rem;
+  }
+
+  .tag-table th {
+    text-align: left;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0.5rem 0.75rem;
+    border-bottom: 2px solid var(--border-strong);
+    white-space: nowrap;
+  }
+
+  .tag-table td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .tag-table tr:last-child td { border-bottom: none; }
+
+  .tag-table tbody tr:hover td { background: var(--bg-alt); }
+
+  code {
+    font-family: 'Courier New', 'Courier', monospace;
+    font-size: 0.82em;
+    background: var(--bg-code);
+    color: var(--tag-text);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.2em 0.5em;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .badge-hero    { background: var(--accent-light); color: var(--accent); }
+  .badge-col1    { background: var(--section-1); color: #2a5a84; }
+  .badge-col2    { background: var(--section-2); color: #2a5a1a; }
+  .badge-col3    { background: var(--section-3); color: #7a4a1a; }
+  .badge-guia    { background: var(--section-4); color: #4a3a8a; }
+
+  /* Rules box */
+  .rules {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .rules ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .rules li {
+    padding-left: 1.25rem;
+    position: relative;
+    font-size: 0.88rem;
+    color: var(--text);
+  }
+
+  .rules li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.8rem;
+  }
+
+  /* Sidebar note */
+  .note {
+    border-left: 3px solid var(--border-strong);
+    padding: 0.6rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .note strong { color: var(--text); }
+
+  /* Overflow wrapper for tables on small screens */
+  .table-wrap { overflow-x: auto; }
+
+  @media (max-width: 480px) {
+    .diagram-cols { grid-template-columns: 1fr; }
+    .doc-title { font-size: 1.5rem; }
+  }
+</style>
+
+<div class="page">
+
+  <header class="doc-header">
+    <p class="doc-eyebrow">Matinal · Tema Ghost</p>
+    <h1 class="doc-title">Capa da Agenda Cultural<br>Lógica de tags e estrutura</h1>
+    <p class="doc-subtitle">Referência para a equipe de conteúdo. Descreve como cada seção da página <code>/agenda</code> é alimentada e quais tags usar ao publicar.</p>
+  </header>
+
+
+  <h2>Estrutura da página</h2>
+  <p>A capa é composta por quatro seções empilhadas. Cada uma puxa posts de forma independente por meio de combinações de tags.</p>
+
+  <div class="diagram">
+    <div class="diagram-block hero">
+      <strong>Seção 1 — Hero</strong>
+      Post da semana em destaque máximo, imagem grande
+    </div>
+    <div class="diagram-cols">
+      <div class="diagram-block col-1">
+        <strong>Seção 2 — Col. 1</strong>
+        Esse mês
+      </div>
+      <div class="diagram-block col-2">
+        <strong>Seção 2 — Col. 2</strong>
+        Vem aí
+      </div>
+      <div class="diagram-block col-3">
+        <strong>Seção 2 — Col. 3</strong>
+        Museus e galerias
+      </div>
+    </div>
+    <div class="diagram-block guia">
+      <strong>Seção 3 — Guia</strong>
+      Lista de posts por área cultural com sidebar
+    </div>
+  </div>
+
+
+  <h2>Tags por seção</h2>
+
+  <div class="table-wrap">
+    <table class="tag-table">
+      <thead>
+        <tr>
+          <th>Seção</th>
+          <th>Cartola</th>
+          <th>Primary tag</th>
+          <th>Tag secundária</th>
+          <th>Limite</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-hero">Hero</span></td>
+          <td>—</td>
+          <td><code>agenda-semanal</code><br><span style="font-size:0.75em;color:var(--text-muted)">na lista: "agenda semanal"</span></td>
+          <td>não obrigatória</td>
+          <td>1 post</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-col1">Col. 1</span></td>
+          <td>Esse mês</td>
+          <td><code>agenda-mensal</code><br><span style="font-size:0.75em;color:var(--text-muted)">na lista: "agenda mensal"</span></td>
+          <td>não obrigatória</td>
+          <td>1 post</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-col2">Col. 2</span></td>
+          <td>Vem aí</td>
+          <td><code>agenda-do-ano</code><br><span style="font-size:0.75em;color:var(--text-muted)">na lista: "agenda do ano"</span></td>
+          <td>não obrigatória</td>
+          <td>1 post</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-col3">Col. 3</span></td>
+          <td>Museus e galerias</td>
+          <td><code>exposicoes</code></td>
+          <td>não obrigatória</td>
+          <td>1 post</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-guia">Roteiros e Guias</span></td>
+          <td>tag secundária do post</td>
+          <td><code>guia</code></td>
+          <td>obrigatória (ver lista)</td>
+          <td>4 posts</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Tags secundárias aceitas na seção Guia</h3>
+  <p>O post só aparece no Guia se tiver <code>primary_tag:guia</code> <strong>e</strong> ao menos uma destas tags secundárias:</p>
+
+  <div class="table-wrap">
+    <table class="tag-table">
+      <thead>
+        <tr>
+          <th>Slug da tag</th>
+          <th>Exibição</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>show</code></td><td>Show</td></tr>
+        <tr><td><code>teatro</code></td><td>Teatro</td></tr>
+        <tr><td><code>danca</code></td><td>Dança</td></tr>
+        <tr><td><code>cinema</code></td><td>Cinema</td></tr>
+        <tr><td><code>serie</code></td><td>Série</td></tr>
+        <tr><td><code>artes-visuais</code></td><td>Artes visuais</td></tr>
+        <tr><td><code>infantil</code></td><td>Infantil</td></tr>
+        <tr><td><code>fotografia</code></td><td>Fotografia</td></tr>
+        <tr><td><code>literatura</code></td><td>Literatura</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <h2>Regras de tagueamento</h2>
+
+  <div class="rules">
+    <ul>
+      <li>A <strong>primary tag</strong> é sempre a <em>primeira</em> tag adicionada ao post no Ghost Admin. É ela que determina em qual seção o post aparece.</li>
+      <li>Posts com <code>primary_tag:cultura</code> + tag secundária <code>exposicoes</code> <strong>não aparecem</strong> na Coluna 3 — apenas posts com <code>primary_tag:exposicoes</code> entram ali.</li>
+      <li>Cada seção puxa o post mais recente. Para substituir o post de uma seção, publique um novo com a mesma primary tag — ele assume automaticamente.</li>
+      <li>Posts antigos ficam acessíveis pelas páginas de tag (ex: <code>/tag/agenda-mensal/</code>) em ordem cronológica.</li>
+      <li>A seção <strong>Roteiros e Guias</strong> mostra os 4 posts mais recentes. A cartola de cada post exibe a <strong>tag secundária</strong> (área), não a primary tag. Novos posts entram no topo e empurram os mais antigos para <code>/tag/guia/</code>.</li>
+    </ul>
+  </div>
+
+
+  <h2>Como publicar para cada seção</h2>
+
+  <h3>Hero — Agenda da semana</h3>
+  <div class="rules">
+    <ul>
+      <li>Adicione como <strong>primeira tag</strong>: selecione <strong>"agenda semanal"</strong> na lista (slug: <code>agenda-semanal</code>).</li>
+      <li>Toda semana, publique um novo post — o anterior sai do hero e vai para <code>/tag/agenda-semanal/</code>.</li>
+      <li>Use imagem de destaque: o hero exibe a imagem em formato fullwidth.</li>
+    </ul>
+  </div>
+
+  <h3>Coluna 1 — Esse mês</h3>
+  <div class="rules">
+    <ul>
+      <li>Primeira tag: selecione <strong>"agenda mensal"</strong> na lista (slug: <code>agenda-mensal</code>).</li>
+      <li>Publicação mensal. O post anterior continua acessível em <code>/tag/agenda-mensal/</code>.</li>
+    </ul>
+  </div>
+
+  <h3>Coluna 2 — Vem aí</h3>
+  <div class="rules">
+    <ul>
+      <li>Primeira tag: selecione <strong>"agenda do ano"</strong> na lista (slug: <code>agenda-do-ano</code>).</li>
+      <li>Frequência livre — use para antecipar eventos do semestre ou do ano.</li>
+    </ul>
+  </div>
+
+  <h3>Coluna 3 — Museus e galerias</h3>
+  <div class="rules">
+    <ul>
+      <li>Primeira tag: <code>exposicoes</code>.</li>
+      <li>Atualize quando houver nova programação de museus e galerias.</li>
+    </ul>
+  </div>
+
+  <h3>Roteiros e Guias</h3>
+  <div class="rules">
+    <ul>
+      <li>Primeira tag: <code>guia</code>.</li>
+      <li>Adicione obrigatoriamente uma tag de área como <strong>segunda tag</strong> (ver tabela acima) — ela aparece como cartola no card.</li>
+      <li>Exemplo de tagueamento: <code>guia</code> → <code>teatro</code> → demais tags opcionais.</li>
+      <li>A ordem das tags importa: <code>guia</code> deve ser sempre a primeira.</li>
+    </ul>
+  </div>
+
+
+  <h2>Banner lateral da seção Roteiros e Guias</h2>
+  <p>O banner lateral é uma imagem estática com label <strong>PUBLICIDADE</strong> acima. Para trocar:</p>
+  <div class="rules">
+    <ul>
+      <li>No arquivo <code>page-agenda.hbs</code>, localize o bloco <code>&lt;!-- Banner lateral --&gt;</code>.</li>
+      <li>Substitua o atributo <code>src=""</code> pela URL da nova imagem ou gif.</li>
+      <li>Substitua o <code>href="/assine"</code> pela URL de destino do clique.</li>
+      <li>Aceita imagem estática (.png, .jpg, .webp) ou gif animado.</li>
+    </ul>
+  </div>
+
+  <div class="note">
+    <strong>Arquivo completo:</strong> todos os posts de cada tipo ficam acessíveis pelas páginas de tag — <code>/tag/agenda-semanal/</code>, <code>/tag/agenda-mensal/</code>, <code>/tag/agenda-do-ano/</code>, <code>/tag/exposicoes/</code>, <code>/tag/guia/</code>.
+  </div>
+
+</div>
