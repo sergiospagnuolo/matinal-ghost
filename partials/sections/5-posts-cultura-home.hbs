@@ -24,7 +24,7 @@
 
     {{!-- GET: posts de cultura para a home --}}
     {{#get "posts"
-      filter="primary_tag:cultura+tag:[destaques-da-agenda,reportagem,resenha]"
+      filter="primary_tag:cultura+tag:[ultimas,reportagem,resenha]"
       include="tags,authors,tiers"
       limit="5"
       order="published_at desc"
